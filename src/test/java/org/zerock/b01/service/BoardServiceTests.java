@@ -29,6 +29,8 @@ public class BoardServiceTests {
         Long bno = boardService.register(boardDTO);
 
         log.info("bno: " + bno);
+        log.info("bno");
+
     }
 
     @Test
