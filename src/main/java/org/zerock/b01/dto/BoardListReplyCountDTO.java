@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Data
 public class BoardListReplyCountDTO {
-
     private Long bno;
 
     private String title;
@@ -16,5 +15,4 @@ public class BoardListReplyCountDTO {
     private LocalDateTime regDate;
 
     private Long replyCount;
-
 }

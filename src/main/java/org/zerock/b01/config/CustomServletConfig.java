@@ -9,9 +9,10 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 public class CustomServletConfig implements WebMvcConfigurer {
 
+
+    //Swagger UI가 적용되면서 정적 파일의 경로가 달려져서,
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-
         registry.addResourceHandler("/js/**")
                 .addResourceLocations("classpath:/static/js/");
         registry.addResourceHandler("/fonts/**")
@@ -20,7 +21,5 @@ public class CustomServletConfig implements WebMvcConfigurer {
                 .addResourceLocations("classpath:/static/css/");
         registry.addResourceHandler("/assets/**").
                 addResourceLocations("classpath:/static/assets/");
-
     }
-
 }

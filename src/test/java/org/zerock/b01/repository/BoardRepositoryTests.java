@@ -9,6 +9,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.zerock.b01.domain.Board;
+import org.zerock.b01.dto.BoardListReplyCountDTO;
 
 import java.util.List;
 import java.util.Optional;
@@ -33,6 +34,15 @@ public class BoardRepositoryTests {
             Board result = boardRepository.save(board);
             log.info("BNO: " + result.getBno());
         });
+
+//        Board board = Board.builder().bno(100L)
+//                    .title("title 100")
+//                    .content("여기는 100번 게시글.")
+//                    .writer("user1")
+//                    .build();
+//
+//            Board result = boardRepository.save(board);
+//            log.info("BNO: " + result.getBno());
     }
 
     @Test
@@ -90,28 +100,30 @@ public class BoardRepositoryTests {
 
     }
 
+
     @Test
     public void testSearch1() {
 
-        //2 page order by bno desc
         Pageable pageable = PageRequest.of(1,10, Sort.by("bno").descending());
-
         boardRepository.search1(pageable);
+
+
 
     }
 
+
     @Test
     public void testSearchAll() {
-
         String[] types = {"t","c","w"};
 
         String keyword = "1";
 
         Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
 
-        Page<Board> result = boardRepository.searchAll(types, keyword, pageable );
 
+        Page<Board> result = boardRepository.searchAll(types, keyword, pageable );
     }
+
 
     @Test
     public void testSearchAll2() {
@@ -137,6 +149,29 @@ public class BoardRepositoryTests {
         log.info(result.hasPrevious() +": " + result.hasNext());
 
         result.getContent().forEach(board -> log.info(board));
+
+    }
+
+    @Test
+    public void testSearchReplyCount() {
+        String[] types = {"t","c","w"};
+
+        String keyword = "100";
+
+        Pageable pageable = PageRequest.of(0,10, Sort.by("bno").descending());
+
+        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable );
+
+        //total pages
+        log.info(result.getTotalPages());
+        //pag size
+        log.info(result.getSize());
+        //pageNumber
+        log.info(result.getNumber());
+        //prev next
+        log.info(result.hasPrevious() +": " + result.hasNext());
+
+        result.getContent().forEach(board -> log.info("board" + board));
     }
 
 
